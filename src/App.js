@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import NewsContainer from './components/example/newsContainer';
+import EditNews from './components/example/editNews';
+import LoginUser from './components/login/loginComponent' 
+import loginPhoto from './loginPhoto.svg'; 
+// function App() {
+//   return (
+//     <div className="App">
+//       <img src={loginPhoto}/>
+//       <div className='container'>
+//         <EditNews/>
+//         <NewsContainer/>
+        
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+<div className="App">
+
+
+  <div className="container">
+    
+    <div className="col">
+      <img src={loginPhoto} alt="Login" />
     </div>
+    <LoginUser/>
+
+  </div>
+</div>
   );
 }
 
+
 export default App;
+
