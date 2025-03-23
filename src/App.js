@@ -1,8 +1,11 @@
 import './App.css';
 import NewsContainer from './components/example/newsContainer';
 import EditNews from './components/example/editNews';
-import LoginUser from './components/login/loginComponent' 
-import loginPhoto from './loginPhoto.svg'; 
+import LoginUser from './components/login/loginComponent'
+import loginPhoto from './loginPhoto.svg';
+import { useTranslation } from 'react-i18next';
+import LanguageDropdown from './components/LanguageDropdown'
+
 // function App() {
 //   return (
 //     <div className="App">
@@ -10,7 +13,7 @@ import loginPhoto from './loginPhoto.svg';
 //       <div className='container'>
 //         <EditNews/>
 //         <NewsContainer/>
-        
+
 //       </div>
 //     </div>
 //   );
@@ -21,20 +24,26 @@ import loginPhoto from './loginPhoto.svg';
 
 
 function App() {
+
+
+
   return (
-    
-<div className="App">
 
+    <div className="App">
 
-  <div className="container">
-    
-    <div className="col">
-      <img src={loginPhoto} alt="Login" />
+      <div className="container-mid">
+        <LanguageDropdown />
+
+        <div className="container">
+
+          <div className="col">
+            <img src={loginPhoto} alt="Login" />
+          </div>
+          <LoginUser />
+
+        </div>
+      </div>
     </div>
-    <LoginUser/>
-
-  </div>
-</div>
   );
 }
 
