@@ -24,18 +24,21 @@ function LoginUser(){
           <div className="input-wrapper">
             <label htmlFor="email">{t("email")}</label>
             <input type="email" id="email" value={state.user.email} onChange={onChange} ref={emailRef} />
+            <b> ошибка</b>
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">{t("password")}</label>
             <input type="password" id="password" required value={state.user.password} onChange={onChange} ref={passwordRef}  />
+            <b> ошибка</b>
           </div>
           <label className="toggle">
             <input className="toggle-checkbox" type="checkbox" value={state.user.rememberMe} onChange={onChange} ref={rememberMeRef} />
             <div className="toggle-switch"></div>
-            <span className="toggle-label">{t("rememberMe")}</span> 
+            <span className="toggle-label">{t("rememberMe")}</span>            
           </label>
   
           <button type="button" id="loginButton" onClick={authUserThunkCreator(state.user.email,state.user.password, state.user.rememberMe)}>{t("EnterBtn")}</button>
+          <b> ошибка</b>
         </form>
       </div>
     )
