@@ -1,0 +1,100 @@
+body{
+  background-color: #f0f0f0;
+}
+  
+.App {
+    display: grid;
+    place-items: center start;
+    min-height: 100vh;
+    position: relative;
+
+    overflow: hidden; 
+  }
+  
+.huge-text{
+  font-size: 23rem;
+  margin: 10px;
+  color: #007bff;
+}
+
+.container-col {
+  display: flex;
+  flex-direction: column; /* Располагаем элементы в колонку */
+  gap: 10px; /* Добавляем отступ между элементами, по желанию */
+  max-width: 60vh;
+  margin-left: 20vh;
+
+}
+
+.container-row {
+  display: flex;
+  gap: 10px; /*  Добавляем отступ между элементами, по желанию */
+}
+p{
+  font-size: 30px;
+  
+}
+
+ button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+
+  }
+
+  .ribbon-3 {
+    font-size: 58px;
+    width: 2000px;
+    padding: 16px;
+    position: absolute;
+    text-align: center;
+    color: #f0f0f0;
+    bottom: 300px;
+    right: -600px; 
+    transform: rotate(-40deg);
+    background-color: #007bff;
+  } 
+  .ribbon-2 {
+    font-size: 58px;
+    width: 2000px;
+    padding: 16px;
+    position: absolute;
+    text-align: center;
+    color: #f0f0f0;
+    bottom: 800px;
+    right: -600px; 
+    transform: rotate(40deg);
+    background-color: #007bff;
+  } 
+ 
+
+ 
+  @media (max-width:  800px) {
+    .huge-text{
+      font-size: 200px;
+    }
+    p{
+      font-size: 15px;
+      
+    }
+    .container-col {
+      margin: 1vh;
+      max-width: 80vh;
+      padding: 15px;
+    }
+    .ribbon-3{
+      display: none;
+    }
+    .ribbon-2{
+      display: none;
+    }
+    .App {
+      position: default;
+      overflow: default;
+    }
+  }
+  

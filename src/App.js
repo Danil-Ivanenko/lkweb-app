@@ -21,13 +21,13 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/loginPage'
-
+import Page404 from './pages/Page404'
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-
+        <Route path="404" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   );

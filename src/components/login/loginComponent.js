@@ -1,6 +1,6 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {loginActionCreator} from '../../reducers/auth-reducer';
+import {loginActionCreator, loginFailureActionCreator} from '../../reducers/auth-reducer';
 import {authUserThunkCreator} from '../../reducers/auth-reducer';
 import {useTranslation} from 'react-i18next';
 
@@ -11,12 +11,13 @@ function LoginUser(){
     const passwordRef = React.createRef();
     const rememberMeRef = React.createRef();
     var state = useSelector((state) => state.authPage);
-    //console.log(state)/
+    console.log(state)
     const dispatch = useDispatch();
     const onChange = () => {
         dispatch(loginActionCreator(emailRef.current.value, passwordRef.current.value, rememberMeRef.current.checked));
+        dispatch(loginFailureActionCreator("","",""));
     }
-
+    console.log(state)
     return(
         <div className="col">
         <form className="login-form"> 
@@ -24,12 +25,12 @@ function LoginUser(){
           <div className="input-wrapper">
             <label htmlFor="email">{t("email")}</label>
             <input type="email" id="email" value={state.user.email} onChange={onChange} ref={emailRef} />
-            <b> ошибка</b>
+            <b > {state.error.emailError}</b>
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">{t("password")}</label>
             <input type="password" id="password" required value={state.user.password} onChange={onChange} ref={passwordRef}  />
-            <b> ошибка</b>
+            <b> {state.error.passwordError}</b>
           </div>
           <label className="toggle">
             <input className="toggle-checkbox" type="checkbox" value={state.user.rememberMe} onChange={onChange} ref={rememberMeRef} />
@@ -37,8 +38,8 @@ function LoginUser(){
             <span className="toggle-label">{t("rememberMe")}</span>            
           </label>
   
-          <button type="button" id="loginButton" onClick={authUserThunkCreator(state.user.email,state.user.password, state.user.rememberMe)}>{t("EnterBtn")}</button>
-          <b> ошибка</b>
+          <button type="button" id="loginButton" onClick={() => dispatch(authUserThunkCreator(state.user.email,state.user.password, state.user.rememberMe))}>{t("EnterBtn")}</button>
+          <b> {state.error.loginFailure}</b>
         </form>
       </div>
     )
