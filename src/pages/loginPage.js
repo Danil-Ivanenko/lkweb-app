@@ -1,11 +1,11 @@
-import '../App.css';
+import styles from  '../csses/login.module.css';
 import NewsContainer from '../components/example/newsContainer';
 import EditNews from '../components/example/editNews';
 import LoginUser from '../components/login/loginComponent'
 import loginPhoto from '../loginPhoto.svg';
 import { useTranslation } from 'react-i18next';
 import LanguageDropdown from '../components/LanguageDropdown'
-import '../dropdown.css'
+
 // function App() {
 //   return (
 //     <div className="App">
@@ -27,14 +27,14 @@ function LoginPage() {
 
   return (
 
-    <div className="App">
+    <div className={styles.App}>
 
-      <div className="container-mid">
+      <div className={styles['container-mid']}>
         <LanguageDropdown />
 
-        <div className="container">
+        <div className={styles.container}>
 
-          <div className="col">
+          <div className={styles.col}>
             <img src={loginPhoto} alt="Login" />
           </div>
           <LoginUser />

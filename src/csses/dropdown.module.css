@@ -24,7 +24,7 @@
     z-index: 1;
 }
 
-.dropdown-content p {
+.dropdownItem  {
     color: black;
     padding: 5px 16px;
 

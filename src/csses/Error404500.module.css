@@ -30,12 +30,12 @@ body{
   display: flex;
   gap: 10px; /*  Добавляем отступ между элементами, по желанию */
 }
-p{
+.pText{
   font-size: 30px;
   
 }
 
- button {
+ .buttonBack {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -73,7 +73,7 @@ p{
  
 
  
-  @media (max-width:  800px) {
+  @media (max-width:  1600px) {
     .huge-text{
       font-size: 200px;
     }
