@@ -35,7 +35,7 @@ export function authUserThunkCreator(email, password, rememberMe) {
       try {
         const data = await lkApi.login(email, password, rememberMe); 
         if (data.loginSucceeded === true) {
-
+            console.log(data)
         } 
         else if (data.loginSucceeded === false) {
             console.log(data)

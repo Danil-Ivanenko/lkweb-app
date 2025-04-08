@@ -34,7 +34,7 @@
   box-sizing: border-box;
   gap: 5px;
 }
-b {
+.error {
   color: rgb(235,87,87);
 }
 .col {

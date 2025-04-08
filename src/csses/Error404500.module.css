@@ -19,8 +19,8 @@ body{
 
 .container-col {
   display: flex;
-  flex-direction: column; /* Располагаем элементы в колонку */
-  gap: 10px; /* Добавляем отступ между элементами, по желанию */
+  flex-direction: column; 
+  gap: 10px; 
   max-width: 60vh;
   margin-left: 20vh;
 
@@ -28,7 +28,7 @@ body{
 
 .container-row {
   display: flex;
-  gap: 10px; /*  Добавляем отступ между элементами, по желанию */
+  gap: 10px; 
 }
 .pText{
   font-size: 30px;

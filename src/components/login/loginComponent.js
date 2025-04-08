@@ -25,12 +25,12 @@ function LoginUser(){
           <div className={styles['input-wrapper']}>
             <label htmlFor="email">{t("email")}</label>
             <input type="email" id="email" value={state.user.email} onChange={onChange} ref={emailRef} />
-            <b > {state.error.emailError}</b>
+            <b  className={styles['error']}> {state.error.emailError}</b>
           </div>
           <div className={styles['input-wrapper']}>
             <label htmlFor="password">{t("password")}</label>
             <input type="password" id="password" required value={state.user.password} onChange={onChange} ref={passwordRef}  />
-            <b> {state.error.passwordError}</b>
+            <b className={styles['error']}> {state.error.passwordError}</b>
           </div>
           <label className={styles.toggle}>
             <input className={styles['toggle-checkbox']} type="checkbox" value={state.user.rememberMe} onChange={onChange} ref={rememberMeRef} />
@@ -38,8 +38,8 @@ function LoginUser(){
             <span className={styles['toggle-label']}>{t("rememberMe")}</span>            
           </label>
   
-          <button type={styles.button} id="loginButton" onClick={() => dispatch(authUserThunkCreator(state.user.email,state.user.password, state.user.rememberMe))}>{t("EnterBtn")}</button>
-          <b> {state.error.loginFailure}</b>
+          <button  className={styles.button} type="button" id="loginButton" onClick={() => dispatch(authUserThunkCreator(state.user.email,state.user.password, state.user.rememberMe))}>{t("EnterBtn")}</button>
+          <b className={styles['error']}> {state.error.loginFailure}</b>
         </form>
       </div>
     )
