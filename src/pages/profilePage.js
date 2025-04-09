@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import LanguageDropdown from '../components/LanguageDropdown'
 import Sidebar from '../components/Sidebar';
 import  '../csses/sidebar.css'
 import '../csses/profile.css'
+import {useSelector, useDispatch} from 'react-redux'
+import {loadProfileThunkCreator} from '../reducers/profile-reducer';
+import ProfileItem from '../components/profile/profileItem';
+
 function ProfilePage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
+    var state = useSelector((state) => state.profileReducer);
+    const dispatch = useDispatch();
+    useEffect(() => {dispatch(loadProfileThunkCreator());}, [dispatch]);
+    console.log(state)
+    
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    const [activeSection, setActiveSection] = useState('study'); 
+
+    const toggleSection = () => {
+        setActiveSection(prevSection => (prevSection === 'study' ? 'work' : 'study'));
+    };
+
     return (
 
     <div className="app-container">
+
     <div className="header"> 
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <p className={'headerName' }> Профиль</p>
@@ -25,78 +41,55 @@ function ProfilePage() {
             <div className='containerCol'>
                 <div className='simpleForm'>
                     <p className='smallH'>Личные данные</p>
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Пол </p>
-                        <p> Женский </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Дата рождения </p>
-                        <p>  01.01.1999 </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Гражданство </p>
-                        <p> Россия </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> СНИЛС </p>
-                        <p> 000 000 000 000 </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Email </p>
-                        <p> study@mail.com </p>
-                        <hr className="hr" />
-                    </div>
+    
+                    <ProfileItem name={"Пол"} text={state.profile.gender}/>
                     
+                    <ProfileItem name={"Дата рождения"} text={state.profile.birthDate}/>
+            
+                    <ProfileItem name={"Гражданство"} text={state.profile.citizenship.name}/>
+
+                    <ProfileItem name={"Email"} text={state.profile.email}/>
 
                 </div>
                 <div className='simpleForm'>
                 <p className='smallH'>Контакты</p>
                     
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Телефон </p>
-                        <p> +7 (955) 255-25-25 </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Телефон 2 </p>
-                        <p> +7 (955) 255-25-25 </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Дополнительный E-mail </p>
-                        <p> study@mail.com </p>
-                        <hr className="hr" />
-                    </div>
-
-                    <div className='inSimpleForm'>
-                        <p className='gray'> Адрес </p>
-                        <p> г.Томск, ул.Колхозная, д.15 </p>
-                        <hr className="hr" />
-                    </div>
+                    <p> Доделать</p>
+                    {state.profile.contacts && Array.isArray(state.profile.contacts) ? (
+                            state.profile.contacts.map((contact) => (
+                            <ProfileItem name={contact.type} text={contact.value}/>
+                            ))
+                        ) : (
+                            <p>Нет контактов</p>
+                    )}
+                    <ProfileItem name={"Адрес"} text={state.profile.address}/>
 
                 </div>
             </div>
 
-            <div className='containerCol'>
-                <div className='simpleForm'>
-                    <p>Образование Работа</p>
 
-                    <div className='inSimpleForm'>
-                        <p> Стаж </p>
-                        <p className='gray'> Дополнительный E-mail </p>
-                        <p> study@mail.com </p>
-                        <hr className="hr" />
-                    </div>
+            <div className='containerCol'>
+                <p  className='smallH'> {state.profile.lastName + ' ' + state.profile.firstName + ' ' + state.profile.patronymic} </p>
+                <div className='simpleForm'>
+                    <p onClick={toggleSection} style={{cursor: 'pointer'}}>Образование  Работа</p>
+                    <hr className="hr" />
+                    {activeSection === 'study' && (
+                        <div className='inSimpleForm'>
+                            <p> Образование </p>
+                            <p className='gray'> Дополнительный E-mail </p>
+                            <p> study@mail.com </p>
+                            <hr className="hr" />
+                        </div>
+                    )}
+
+                    {activeSection === 'work' && (
+                        <div className='inSimpleForm'>
+                            <p> Работа</p>
+                            <p className='gray'> Дополнительный E-mail </p>
+                            <p> Какойй-то текст </p>
+                            <hr className="hr" />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -107,31 +100,3 @@ function ProfilePage() {
   
   export default ProfilePage;
   
-//   <div className={styles['app-container']}>
-//   <div className={styles.header}> {/* Контейнер для Sidebar и LanguageDropdown */}
-//       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <p className={styles.headerName }> Профиль</p>
-//       <p className={`${styles.headerName} ${isSidebarOpen ? styles.headerNameShifted : ''}`}>Профиль</p>
-//       <LanguageDropdown />
-//   </div>
-
-//   <div className={`${styles.mainContent} ${isSidebarOpen ? styles.mainContentShifted : ''}`}>
-//       <p className={styles.mainName}> Профиль</p>
-//       <p>Some content here...</p>
-//   </div>
-// </div>
-
-
-{/* <div className="app-container">
-<div className="header"> 
-    <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-    <p className={'headerName' }> Профиль</p>
-    <p className={`headerName ${isSidebarOpen ? 'shifted' : ''}`}>Профиль</p>
-    <LanguageDropdown />
-</div>
-
-<div className={`main-content ${isSidebarOpen ? 'shifted' : ''}`}>
-    <p className='mainName'> Профиль</p>
-    <p>Some content here...</p>
-</div>
-</div> */}
