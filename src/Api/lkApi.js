@@ -52,6 +52,52 @@ async function getProfile(){
     });
 }
 
+async function getProfileStudent(){
+    return instance.get('Profile/student', {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}` 
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.data; 
+        }
+    })
+    .catch(error => {
+        if (error.response) {
+            return(error.response.data)
+        }
+        else
+        {
+            console.log("Ошибка")
+        }
+    });
+}
+
+
+async function getProfileEmployee(){
+    return instance.get('Profile/employee', {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}` 
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.data; 
+        }
+    })
+    .catch(error => {
+        if (error.response) {
+            return(error.response.data)
+        }
+        else
+        {
+            console.log("Ошибка")
+        }
+    });
+}
+
+
 
 async function refreshToken() {
     if (localStorage.getItem('token') == null)
@@ -110,5 +156,7 @@ instance.interceptors.response.use(
 
 export const lkApi = {
     login : login,
-    getProfile : getProfile
+    getProfile : getProfile,
+    getProfileStudent: getProfileStudent,
+    getProfileEmployee : getProfileEmployee
 }
