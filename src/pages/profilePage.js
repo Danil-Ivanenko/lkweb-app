@@ -10,6 +10,9 @@ import { loadEmployeeThunkCreator } from '../reducers/profile-reducer'; // Да�
 
 import ProfileItem from '../components/profile/profileItem';
 
+import ProfileStudentInfo from '../components/profile/profileStudentInfo';
+import ProfileEmployeeInfo from '../components/profile/proileEmployeeInfo';
+import ProfileExperience from '../components/profile/profileExperienceInfo';
 function ProfilePage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     var state = useSelector((state) => state.profileReducer);
@@ -21,7 +24,7 @@ function ProfilePage() {
         dispatch(loadStudentThunkCreator());
         dispatch(loadEmployeeThunkCreator());
     }, [dispatch]);
-    console.log(state)
+    //console.log(state)
     
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -38,7 +41,7 @@ function ProfilePage() {
 
             if (studentState.id != null) {
                 setActiveSection('study');
-            } else if (employeeState.id != 400) {  // Передеалать когда починят
+            } else if (employeeState.id != null) {  // Передеалать когда починят
                 setActiveSection('work');
             } else {
                 setActiveSection(null); 
@@ -50,7 +53,7 @@ function ProfilePage() {
 
     const toggleSection = () => {
         setActiveSection((prevSection) => {
-            if (prevSection === 'study'  && employeeState.Status == 400 ) {  //// Передеалать когда починят && employeeState.status == 400
+            if (prevSection === 'study'  && employeeState.id != null ) {  //// Передеалать когда починят && employeeState.status == 400
                 return 'work';
             } else if (prevSection === 'work'  && studentState.id != null) {// 
                 return 'study';
@@ -114,32 +117,30 @@ function ProfilePage() {
                     {activeSection === 'study' && (
    
                         Array.isArray(studentState.educationEntries) ? (
-                            studentState.educationEntries.map((educationEntry) => (
-                                <div key={educationEntry.id}>
-                                <ProfileItem name="Факультет" text={educationEntry.faculty.name || "Нет данных"} />
-                                <ProfileItem name="Группа" text={educationEntry.group.name || "Нет данных"} />
-                                <ProfileItem name="Статус обучения" text={educationEntry.educationStatus.name || "Нет данных"} />
-                                <ProfileItem name="Основа обучения" text={educationEntry.educationBase.name || "Нет данных"} />
-                                <ProfileItem name="Направление обучения" text={educationEntry.educationDirection.name || "Нет данных"} />
-                                <ProfileItem name="Профиль обучения" text={educationEntry.educationProfile.name || "Нет данных"} />
-                                <ProfileItem name="Квалификация" text={educationEntry.educationQualification.name || "Нет данных"} />
-                                <ProfileItem name="Уровень образования" text={educationEntry.educationLevel.name || "Нет данных"} />
-                                <ProfileItem name="Форма обучения" text={educationEntry.educationForm.name || "Нет данных"} />
-                                <ProfileItem name="Годы обучения" text={educationEntry.educationYears.name || "Нет данных"} />
-                                <ProfileItem name="Номер зачетной книжки" text={educationEntry.creditBooknumber || "Нет данных"} />
-                                <ProfileItem name="Курс" text={educationEntry.course || "Нет данных"} />
-                                <ProfileItem name="Год поступления" text={educationEntry.admissionYear || "Нет данных"} />
+                            studentState.educationEntries.map((educationEntry, index) => (
+                                <div key={index}>
+                                
+                                <ProfileStudentInfo educationEntry={educationEntry} />
                             </div>
+                            
                             ))
                         ) : ("")
                     )}
 
                     {activeSection === 'work' && (
-                        <div className='inSimpleForm'>
-                            <p> Работа</p>
-                            <p className='gray'> Дополнительный E-mail </p>
-                            <p> Какойй-то текст </p>
-                            <hr className="hr" />
+                        <div> 
+                       <ProfileExperience experience={employeeState.experience} />
+                       
+                       { Array.isArray(employeeState.posts) ? (
+                            employeeState.posts.map((post, index) => (
+                            <div key={index}>
+                                
+                                <ProfileEmployeeInfo post={post} />
+                            </div>
+                            
+                            ))
+                        ) : ("")}
+                        
                         </div>
                     )}
                     
